@@ -233,9 +233,9 @@
     <script>
         // 1. Data and Messages Configuration
         const data = [
-            { level: 'الابتدائي', key: 'primary', phones: ["0555906880", "0569900902", "0546111009", "0546111000", "0546041113", "0504414169", "0504444857", "0553050084", "0504452457", "0565072829"] },
-            { level: 'المتوسط', key: 'middle', phones: ["543209562", "506480892", "0567744896", "0553217034", "‭0503184429‬", "0554433744", "0504414169", "0503184429", "0546567144", "0553050084", "0503104344", "0555468988", "0555906880", "506236019"] },
-            { level: 'الثانوي', key: 'high', phones: ["509922065", "0555468988", "0505450335", "0559047314", "0503104344", "0503699488", "0500602994", "0566660046", "0500363218", "0553471199", "0561331099", "0555265452", "0554433744", "0504414169", "0553217034", "0555233229", "0503161128", "0541201753", "0500400162", "0504253767", "0505559782"] }
+            { level: 'الابتدائي', key: 'primary', phones: ["0500200480", "0504227685", "0569900902", "0546111009", "0546111000", "0506406382"] },
+            { level: 'المتوسط', key: 'middle', phones: ["0504227685", "0505229552", "0506299997", "0555495306", "0530000693", "0561888171", "0552251777"] },
+            { level: 'الثانوي', key: 'high', phones: ["0507748124", "0505408815"] }
         ];
 
         const messages = {
@@ -267,7 +267,7 @@ https://www.jtwnn.org/programs-register/نادي-بناء-الصيفي-4/
 https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`
         };
 
-        const STORAGE_KEY = 'wa_sender_sent_state_v4';
+        const STORAGE_KEY = 'wa_sender_sent_state_v5'; // Bumped version to reset sent state for the new list
         let sentState = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
         let malformedNumbers = [];
 
@@ -314,7 +314,6 @@ https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`
                     const id = `${group.key}_${normalized}`;
                     const isSent = !!sentState[id];
 
-                    // التغيير الرئيسي هنا: استخدام رابط wa.me لفتح التطبيق في الجوال مباشرة
                     const msgUrl = `https://wa.me/${normalized}?text=${encodeURIComponent(messages[group.key])}`;
 
                     const row = document.createElement('div');

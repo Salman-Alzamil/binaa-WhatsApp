@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مساعد إرسال واتساب - نادي بناء الصيفي</title>
+    <title>مساعد إرسال واتساب - نادي بناء الصيفي (قائمة الانتظار)</title>
     <style>
         :root {
             --primary: #25D366;
@@ -185,7 +185,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>مساعد إرسال واتساب - نادي بناء الصيفي 4</h1>
+            <h1>مساعد إرسال واتساب - نادي بناء الصيفي 4 (قائمة الانتظار)</h1>
         </header>
 
         <div class="summary">
@@ -209,10 +209,6 @@
                 <div>متوسط</div>
                 <div class="stat-value" id="stat-middle">0</div>
             </div>
-            <div class="stat-box">
-                <div>ثانوي</div>
-                <div class="stat-value" id="stat-high">0</div>
-            </div>
         </div>
 
         <div class="malformed-box" id="malformed-box">
@@ -231,47 +227,59 @@
     </div>
 
     <script>
-        // 1. Data and Messages Configuration
+        // 1. Data Extracted from Images
         const data = [
-            { level: 'الابتدائي', key: 'primary', phones: ["0500200480", "0504227685", "0569900902", "0546111009", "0546111000", "0506406382"] },
-            { level: 'المتوسط', key: 'middle', phones: ["0504227685", "0505229552", "0506299997", "0555495306", "0530000693", "0561888171", "0552251777"] },
-            { level: 'الثانوي', key: 'high', phones: ["0507748124", "0505408815"] }
+            { 
+                level: 'الابتدائي', 
+                key: 'primary', 
+                phones: [
+                    "0506480892", "0509922065", "0556233399", "0556233399", 
+                    "0500031118", "0500200480", "0501130282", "0501130282", 
+                    "0501130282", "0502999817", "0504438035", "0505248253", 
+                    "0533533833", "0533774037", "0534444384", "0541177369", 
+                    "0541177369", "0543049722", "0553919157", "0553919157", 
+                    "0554440490", "0554442477", "0554461575", "0554461575", 
+                    "0555417413", "0555417414", "0555552802", "0555798547", 
+                    "0556330770", "0556868620", "0558554448", "0570040725", 
+                    "0591227707", "0594774477"
+                ] 
+            },
+            { 
+                level: 'المتوسط', 
+                key: 'middle', 
+                phones: [
+                    "0503199822", "0503273458", "0500200480", "0500200480", 
+                    "0500618601", "0500900895", "0503634999", "0504207018", 
+                    "0504438035", "0505229552", "0534000059", "0534000059", 
+                    "054 950 6777", "0546419337", "0551230620", "0555468988", 
+                    "0555591791", "0556330770", "0560644034", "0561113042", 
+                    "0564003009", "0581803121", "0590307887"
+                ] 
+            }
         ];
 
+        // 2. The Unified Message
+        const unifiedMessage = `عزيزي المشارك
+نقدّر لك حرصك 
+ونشكر لك اختيارك لنادي بناء الصيفي 4 ⛱️
+ولكن يؤسفنا أن العدد وصل للحد الأعلى
+
+بإمكانك التسجيل في الانتظار الآن
+في حال كان هناك اعتذارات أو مجال للقبول
+فتأكد أننا نحرص على مشاركتك معنا 💐
+
+https://forms.gle/k9736sPRsAmU7fgG7`;
+
         const messages = {
-            primary: `تم قبول المشارك في برنامج 
-  ⛱️ نادي بناء الصيفي 4 *قسم الابتدائي*💫
-- *بداية النادي يوم الاحد الموافق ٢٧ محرم*
-يرجى تسدد الرسوم عن طريق الموقع الاكتروني خلال ال٧٢ ساعة القادمة للحصول على فرصة رسم الاشتراك المخفض :
-https://www.jtwnn.org/programs-register/نادي-بناء-الصيفي-4/
-نرجوا الانضمام للمجموعة الخاصة بالبرنامج :
-https://chat.whatsapp.com/G92W7LzouKM3OPmc9ZPyRZ?mode=gi_t
-*ملاحظة : بعد  ٧٢ ساعة سيكون رسم الاشتراك ٩٥٠ ريال*
-📍موقع النادي :
-https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`,
-            middle: `تم قبول المشارك في برنامج 
-  ⛱️ نادي بناء الصيفي 4 *قسم المتوسط*💫
-- *بداية النادي يوم الاحد الموافق ٢٧ محرم*
-يرجى تسدد الرسوم عن طريق الموقع الاكتروني خلال ال٧٢ ساعة القادمة للحصول على فرصة رسم الاشتراك المخفض :
-https://www.jtwnn.org/programs-register/نادي-بناء-الصيفي-4/
-*ملاحظة : بعد  ٧٢ ساعة سيكون رسم الاشتراك ٩٥٠ ريال*
-📍موقع النادي :
-https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`,
-            high: `تم قبول المشارك في برنامج 
-  ⛱️ نادي بناء الصيفي 4 *قسم الثانوي*💫
-- *بداية النادي يوم الاحد الموافق ٢٧ محرم*
-يرجى تسدد الرسوم عن طريق الموقع الاكتروني خلال ال٧٢ ساعة القادمة للحصول على فرصة رسم الاشتراك المخفض :
-https://www.jtwnn.org/programs-register/نادي-بناء-الصيفي-4/
-*ملاحظة : بعد  ٧٢ ساعة سيكون رسم الاشتراك ٩٥٠ ريال*
-📍موقع النادي :
-https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`
+            primary: unifiedMessage,
+            middle: unifiedMessage
         };
 
-        const STORAGE_KEY = 'wa_sender_sent_state_v5'; // Bumped version to reset sent state for the new list
+        const STORAGE_KEY = 'wa_sender_sent_state_v6';
         let sentState = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
         let malformedNumbers = [];
 
-        // 2. Format Phone Number
+        // 3. Format Phone Number
         function normalizePhone(p) {
             let cleaned = String(p).replace(/[\s\-\u200E\u200F\u202A-\u202E]/g, '');
             if (/^05\d{8}$/.test(cleaned)) return "966" + cleaned.substring(1);
@@ -280,10 +288,10 @@ https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`
             return null;
         }
 
-        // 3. Initialize App
+        // 4. Initialize App
         function init() {
             const container = document.getElementById('lists-container');
-            let counts = { primary: 0, middle: 0, high: 0, total: 0 };
+            let counts = { primary: 0, middle: 0, total: 0 };
 
             data.forEach(group => {
                 const groupDiv = document.createElement('div');
@@ -304,7 +312,7 @@ https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`
                     }
 
                     if (seenInThisLevel.has(normalized)) {
-                        return; 
+                        return; // Skip duplicates within the same level
                     }
                     seenInThisLevel.add(normalized);
 
@@ -343,7 +351,6 @@ https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`
 
             document.getElementById('stat-primary').textContent = counts.primary;
             document.getElementById('stat-middle').textContent = counts.middle;
-            document.getElementById('stat-high').textContent = counts.high;
             document.getElementById('stat-total').textContent = counts.total;
 
             if (malformedNumbers.length > 0) {
@@ -360,7 +367,7 @@ https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`
             updateStats();
         }
 
-        // 4. State Management
+        // 5. State Management
         function markSent(id) {
             const checkbox = document.getElementById(`check_${id}`);
             if (!checkbox.checked) {

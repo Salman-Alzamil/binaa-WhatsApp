@@ -1,305 +1,245 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مساعد إرسال واتساب - نادي بناء الصيفي</title>
     <style>
-      :root {
-        --primary: #25d366;
-        --primary-dark: #128c7e;
-        --bg: #f0f2f5;
-        --card-bg: #ffffff;
-        --text: #111b21;
-        --border: #d1d7db;
-      }
-      body {
-        font-family:
-          system-ui,
-          -apple-system,
-          BlinkMacSystemFont,
-          "Segoe UI",
-          Roboto,
-          Arial,
-          sans-serif;
-        background-color: var(--bg);
-        color: var(--text);
-        margin: 0;
-        padding: 20px;
-        line-height: 1.6;
-      }
-      .container {
-        max-width: 900px;
-        margin: 0 auto;
-      }
-      header {
-        background: var(--primary-dark);
-        color: white;
-        padding: 20px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      }
-      header h1 {
-        margin: 0 0 10px 0;
-        font-size: 24px;
-      }
-      .summary {
-        background: var(--card-bg);
-        padding: 15px 20px;
-        border-radius: 8px;
-        border: 1px solid var(--border);
-        margin-bottom: 20px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        justify-content: space-between;
-        align-items: center;
-      }
-      .stat-box {
-        text-align: center;
-        flex: 1;
-        min-width: 100px;
-      }
-      .stat-value {
-        font-size: 24px;
-        font-weight: bold;
-        color: var(--primary-dark);
-      }
-      .malformed-box {
-        background: #ffebee;
-        color: #c62828;
-        padding: 15px;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        display: none;
-        border: 1px solid #ffcdd2;
-      }
-      .malformed-box ul {
-        margin: 10px 0 0 0;
-        padding-inline-start: 20px;
-      }
-      .controls {
-        margin-bottom: 20px;
-        background: var(--card-bg);
-        padding: 15px 20px;
-        border-radius: 8px;
-        border: 1px solid var(--border);
-      }
-      .controls label {
-        cursor: pointer;
-        user-select: none;
-        font-weight: bold;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        width: fit-content;
-      }
-      input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
-        accent-color: var(--primary-dark);
-        cursor: pointer;
-      }
-      .group {
-        background: var(--card-bg);
-        border-radius: 8px;
-        border: 1px solid var(--border);
-        margin-bottom: 20px;
-        overflow: hidden;
-      }
-      .group-header {
-        background: #e9edef;
-        padding: 12px 20px;
-        font-weight: bold;
-        font-size: 18px;
-        border-bottom: 1px solid var(--border);
-      }
-      .participant {
-        display: flex;
-        align-items: center;
-        padding: 15px 20px;
-        border-bottom: 1px solid var(--border);
-        transition: all 0.3s ease;
-      }
-      .participant:last-child {
-        border-bottom: none;
-      }
-      .participant.sent {
-        background-color: #f0f2f5;
-        opacity: 0.6;
-      }
-      .participant.hidden {
-        display: none;
-      }
-      .info {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
-      .phone {
-        font-size: 18px;
-        font-weight: bold;
-        direction: ltr;
-        display: inline-block;
-        background: #e9edef;
-        padding: 5px 12px;
-        border-radius: 6px;
-      }
-      .name-label {
-        font-size: 16px;
-        color: #54656f;
-      }
-      .actions {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
-      .btn-whatsapp {
-        background-color: var(--primary);
-        color: white;
-        text-decoration: none;
-        padding: 10px 24px;
-        border-radius: 24px;
-        font-weight: bold;
-        display: inline-block;
-        transition: background-color 0.2s;
-        text-align: center;
-      }
-      .btn-whatsapp:hover {
-        background-color: var(--primary-dark);
-      }
-      .sent-toggle {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-        user-select: none;
-        font-weight: bold;
-        color: #54656f;
-      }
+        :root {
+            --primary: #25D366;
+            --primary-dark: #128C7E;
+            --bg: #f0f2f5;
+            --card-bg: #ffffff;
+            --text: #111b21;
+            --border: #d1d7db;
+        }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        header {
+            background: var(--primary-dark);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        header h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            text-align: center;
+        }
+        .summary {
+            background: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .stat-box {
+            text-align: center;
+            flex: 1;
+            min-width: 80px;
+        }
+        .stat-value {
+            font-size: 22px;
+            font-weight: bold;
+            color: var(--primary-dark);
+        }
+        .malformed-box {
+            background: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            border: 1px solid #ffcdd2;
+        }
+        .malformed-box ul {
+            margin: 10px 0 0 0;
+            padding-inline-start: 20px;
+        }
+        .controls {
+            margin-bottom: 20px;
+            background: var(--card-bg);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .controls label {
+            cursor: pointer;
+            user-select: none;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: fit-content;
+        }
+        input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-dark);
+            cursor: pointer;
+        }
+        .group {
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .group-header {
+            background: #e9edef;
+            padding: 12px 20px;
+            font-weight: bold;
+            font-size: 18px;
+            border-bottom: 1px solid var(--border);
+        }
+        .participant {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 20px;
+            border-bottom: 1px solid var(--border);
+            transition: all 0.3s ease;
+            gap: 15px;
+        }
+        .participant:last-child {
+            border-bottom: none;
+        }
+        .participant.sent {
+            background-color: #f0f2f5;
+            opacity: 0.6;
+        }
+        .participant.hidden {
+            display: none;
+        }
+        .info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .phone {
+            font-size: 16px;
+            font-weight: bold;
+            direction: ltr;
+            display: inline-block;
+            background: #e9edef;
+            padding: 5px 12px;
+            border-radius: 6px;
+        }
+        .name-label {
+            font-size: 16px;
+            color: #54656f;
+        }
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .btn-whatsapp {
+            background-color: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 24px;
+            font-weight: bold;
+            display: inline-block;
+            transition: background-color 0.2s;
+            text-align: center;
+            flex-grow: 1;
+        }
+        .btn-whatsapp:hover {
+            background-color: var(--primary-dark);
+        }
+        .sent-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            user-select: none;
+            font-weight: bold;
+            color: #54656f;
+            background: #e9edef;
+            padding: 8px 12px;
+            border-radius: 8px;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <header>
-        <h1>مساعد إرسال واتساب - نادي بناء الصيفي 4</h1>
-      </header>
+        <header>
+            <h1>مساعد إرسال واتساب - نادي بناء الصيفي 4</h1>
+        </header>
 
-      <div class="summary">
-        <div class="stat-box">
-          <div>إجمالي الأرقام الصالحة</div>
-          <div class="stat-value" id="stat-total">0</div>
+        <div class="summary">
+            <div class="stat-box">
+                <div>إجمالي الأرقام</div>
+                <div class="stat-value" id="stat-total">0</div>
+            </div>
+            <div class="stat-box">
+                <div>تم الإرسال</div>
+                <div class="stat-value" id="stat-sent">0</div>
+            </div>
+            <div class="stat-box">
+                <div>المتبقي</div>
+                <div class="stat-value" id="stat-remaining">0</div>
+            </div>
+            <div class="stat-box">
+                <div>ابتدائي</div>
+                <div class="stat-value" id="stat-primary">0</div>
+            </div>
+            <div class="stat-box">
+                <div>متوسط</div>
+                <div class="stat-value" id="stat-middle">0</div>
+            </div>
+            <div class="stat-box">
+                <div>ثانوي</div>
+                <div class="stat-value" id="stat-high">0</div>
+            </div>
         </div>
-        <div class="stat-box">
-          <div>تم الإرسال</div>
-          <div class="stat-value" id="stat-sent">0</div>
-        </div>
-        <div class="stat-box">
-          <div>المتبقي</div>
-          <div class="stat-value" id="stat-remaining">0</div>
-        </div>
-        <div class="stat-box">
-          <div>ابتدائي</div>
-          <div class="stat-value" id="stat-primary">0</div>
-        </div>
-        <div class="stat-box">
-          <div>متوسط</div>
-          <div class="stat-value" id="stat-middle">0</div>
-        </div>
-        <div class="stat-box">
-          <div>ثانوي</div>
-          <div class="stat-value" id="stat-high">0</div>
-        </div>
-      </div>
 
-      <div class="malformed-box" id="malformed-box">
-        <strong>تنبيه:</strong> تم تخطي الأرقام التالية لأنها غير صالحة (يرجى
-        مراجعتها):
-        <ul id="malformed-list"></ul>
-      </div>
+        <div class="malformed-box" id="malformed-box">
+            <strong>تنبيه:</strong> تم تخطي الأرقام التالية لأنها غير صالحة (يرجى مراجعتها):
+            <ul id="malformed-list"></ul>
+        </div>
 
-      <div class="controls">
-        <label>
-          <input type="checkbox" id="hide-sent" onchange="toggleHidden()" />
-          إخفاء الأرقام التي تم الإرسال إليها
-        </label>
-      </div>
+        <div class="controls">
+            <label>
+                <input type="checkbox" id="hide-sent" onchange="toggleHidden()">
+                إخفاء الأرقام التي تم الإرسال إليها
+            </label>
+        </div>
 
-      <div id="lists-container"></div>
+        <div id="lists-container"></div>
     </div>
 
     <script>
-      // 1. Data and Messages Configuration
-      const data = [
-        {
-          level: "الابتدائي",
-          key: "primary",
-          phones: [
-            "0555906880",
-            "0569900902",
-            "0546111009",
-            "0546111000",
-            "0546041113",
-            "0504414169",
-            "0504444857",
-            "0553050084",
-            "0504452457",
-            "0565072829",
-          ],
-        },
-        {
-          level: "المتوسط",
-          key: "middle",
-          phones: [
-            "543209562",
-            "506480892",
-            "0567744896",
-            "0553217034",
-            "‭0503184429‬",
-            "0554433744",
-            "0504414169",
-            "0503184429",
-            "0546567144",
-            "0553050084",
-            "0503104344",
-            "0555468988",
-            "0555906880",
-            "506236019",
-          ],
-        },
-        {
-          level: "الثانوي",
-          key: "high",
-          phones: [
-            "509922065",
-            "0555468988",
-            "0505450335",
-            "0559047314",
-            "0503104344",
-            "0503699488",
-            "0500602994",
-            "0566660046",
-            "0500363218",
-            "0553471199",
-            "0561331099",
-            "0555265452",
-            "0554433744",
-            "0504414169",
-            "0553217034",
-            "0555233229",
-            "0503161128",
-            "0541201753",
-            "0500400162",
-            "0504253767",
-            "0505559782",
-          ],
-        },
-      ];
+        // 1. Data and Messages Configuration
+        const data = [
+            { level: 'الابتدائي', key: 'primary', phones: ["0555906880", "0569900902", "0546111009", "0546111000", "0546041113", "0504414169", "0504444857", "0553050084", "0504452457", "0565072829"] },
+            { level: 'المتوسط', key: 'middle', phones: ["543209562", "506480892", "0567744896", "0553217034", "‭0503184429‬", "0554433744", "0504414169", "0503184429", "0546567144", "0553050084", "0503104344", "0555468988", "0555906880", "506236019"] },
+            { level: 'الثانوي', key: 'high', phones: ["509922065", "0555468988", "0505450335", "0559047314", "0503104344", "0503699488", "0500602994", "0566660046", "0500363218", "0553471199", "0561331099", "0555265452", "0554433744", "0504414169", "0553217034", "0555233229", "0503161128", "0541201753", "0500400162", "0504253767", "0505559782"] }
+        ];
 
-      const messages = {
-        primary: `تم قبول المشارك في برنامج 
+        const messages = {
+            primary: `تم قبول المشارك في برنامج 
   ⛱️ نادي بناء الصيفي 4 *قسم الابتدائي*💫
 - *بداية النادي يوم الاحد الموافق ٢٧ محرم*
 يرجى تسدد الرسوم عن طريق الموقع الاكتروني خلال ال٧٢ ساعة القادمة للحصول على فرصة رسم الاشتراك المخفض :
@@ -309,7 +249,7 @@ https://chat.whatsapp.com/G92W7LzouKM3OPmc9ZPyRZ?mode=gi_t
 *ملاحظة : بعد  ٧٢ ساعة سيكون رسم الاشتراك ٩٥٠ ريال*
 📍موقع النادي :
 https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`,
-        middle: `تم قبول المشارك في برنامج 
+            middle: `تم قبول المشارك في برنامج 
   ⛱️ نادي بناء الصيفي 4 *قسم المتوسط*💫
 - *بداية النادي يوم الاحد الموافق ٢٧ محرم*
 يرجى تسدد الرسوم عن طريق الموقع الاكتروني خلال ال٧٢ ساعة القادمة للحصول على فرصة رسم الاشتراك المخفض :
@@ -317,74 +257,71 @@ https://www.jtwnn.org/programs-register/نادي-بناء-الصيفي-4/
 *ملاحظة : بعد  ٧٢ ساعة سيكون رسم الاشتراك ٩٥٠ ريال*
 📍موقع النادي :
 https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`,
-        high: `تم قبول المشارك في برنامج 
+            high: `تم قبول المشارك في برنامج 
   ⛱️ نادي بناء الصيفي 4 *قسم الثانوي*💫
 - *بداية النادي يوم الاحد الموافق ٢٧ محرم*
 يرجى تسدد الرسوم عن طريق الموقع الاكتروني خلال ال٧٢ ساعة القادمة للحصول على فرصة رسم الاشتراك المخفض :
 https://www.jtwnn.org/programs-register/نادي-بناء-الصيفي-4/
 *ملاحظة : بعد  ٧٢ ساعة سيكون رسم الاشتراك ٩٥٠ ريال*
 📍موقع النادي :
-https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`,
-      };
+https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`
+        };
 
-      const STORAGE_KEY = "wa_sender_sent_state_v3";
-      let sentState = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
-      let malformedNumbers = [];
+        const STORAGE_KEY = 'wa_sender_sent_state_v4';
+        let sentState = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        let malformedNumbers = [];
 
-      // 2. Format Phone Number
-      function normalizePhone(p) {
-        // Remove spaces, dashes, and any hidden directional formatting characters
-        let cleaned = String(p).replace(/[\s\-\u200E\u200F\u202A-\u202E]/g, "");
-        if (/^05\d{8}$/.test(cleaned)) return "966" + cleaned.substring(1);
-        if (/^5\d{8}$/.test(cleaned)) return "966" + cleaned;
-        if (/^9665\d{8}$/.test(cleaned)) return cleaned;
-        return null; // Malformed
-      }
+        // 2. Format Phone Number
+        function normalizePhone(p) {
+            let cleaned = String(p).replace(/[\s\-\u200E\u200F\u202A-\u202E]/g, '');
+            if (/^05\d{8}$/.test(cleaned)) return "966" + cleaned.substring(1);
+            if (/^5\d{8}$/.test(cleaned)) return "966" + cleaned;
+            if (/^9665\d{8}$/.test(cleaned)) return cleaned;
+            return null;
+        }
 
-      // 3. Initialize App
-      function init() {
-        const container = document.getElementById("lists-container");
-        let counts = { primary: 0, middle: 0, high: 0, total: 0 };
+        // 3. Initialize App
+        function init() {
+            const container = document.getElementById('lists-container');
+            let counts = { primary: 0, middle: 0, high: 0, total: 0 };
 
-        data.forEach((group) => {
-          const groupDiv = document.createElement("div");
-          groupDiv.className = "group";
+            data.forEach(group => {
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'group';
+                
+                const groupHeader = document.createElement('div');
+                groupHeader.className = 'group-header';
+                groupHeader.textContent = `قسم ${group.level}`;
+                groupDiv.appendChild(groupHeader);
 
-          const groupHeader = document.createElement("div");
-          groupHeader.className = "group-header";
-          groupHeader.textContent = `قسم ${group.level}`;
-          groupDiv.appendChild(groupHeader);
+                const seenInThisLevel = new Set();
 
-          // Set to track duplicates specific to the current level
-          const seenInThisLevel = new Set();
+                group.phones.forEach((rawPhone) => {
+                    const normalized = normalizePhone(rawPhone);
+                    if (!normalized) {
+                        malformedNumbers.push(rawPhone);
+                        return;
+                    }
 
-          group.phones.forEach((rawPhone) => {
-            const normalized = normalizePhone(rawPhone);
-            if (!normalized) {
-              malformedNumbers.push(rawPhone);
-              return;
-            }
+                    if (seenInThisLevel.has(normalized)) {
+                        return; 
+                    }
+                    seenInThisLevel.add(normalized);
 
-            // Check for duplicate inside the exact same level
-            if (seenInThisLevel.has(normalized)) {
-              return; // Skip if already added to this level
-            }
-            seenInThisLevel.add(normalized);
+                    counts[group.key]++;
+                    counts.total++;
 
-            counts[group.key]++;
-            counts.total++;
+                    const id = `${group.key}_${normalized}`;
+                    const isSent = !!sentState[id];
 
-            const id = `${group.key}_${normalized}`;
-            const isSent = !!sentState[id];
+                    // التغيير الرئيسي هنا: استخدام رابط wa.me لفتح التطبيق في الجوال مباشرة
+                    const msgUrl = `https://wa.me/${normalized}?text=${encodeURIComponent(messages[group.key])}`;
 
-            // Construct WhatsApp URL
-            const msgUrl = `https://web.whatsapp.com/send?phone=${normalized}&text=${encodeURIComponent(messages[group.key])}`;
+                    const row = document.createElement('div');
+                    row.className = `participant ${isSent ? 'sent' : ''}`;
+                    row.id = `row_${id}`;
 
-            const row = document.createElement("div");
-            row.className = `participant ${isSent ? "sent" : ""}`;
-            row.id = `row_${id}`;
-
-            row.innerHTML = `
+                    row.innerHTML = `
                         <div class="info">
                             <span class="name-label">مشارك</span>
                             <div class="phone" dir="ltr">+${normalized}</div>
@@ -392,91 +329,86 @@ https://maps.app.goo.gl/34s3JNTxyxewEXJa7?g_st=com.google.maps.preview.copy`,
                         <div class="actions">
                             <a href="${msgUrl}" target="_blank" class="btn-whatsapp" onclick="markSent('${id}')">فتح في واتساب</a>
                             <label class="sent-toggle">
-                                <input type="checkbox" id="check_${id}" ${isSent ? "checked" : ""} onchange="toggleSent('${id}')">
-                                تم الإرسال ✓
+                                <input type="checkbox" id="check_${id}" ${isSent ? 'checked' : ''} onchange="toggleSent('${id}')">
+                                تم ✓
                             </label>
                         </div>
                     `;
-            groupDiv.appendChild(row);
-          });
+                    groupDiv.appendChild(row);
+                });
 
-          if (counts[group.key] > 0) {
-            container.appendChild(groupDiv);
-          }
-        });
+                if (counts[group.key] > 0) {
+                    container.appendChild(groupDiv);
+                }
+            });
 
-        // Update Summary UI
-        document.getElementById("stat-primary").textContent = counts.primary;
-        document.getElementById("stat-middle").textContent = counts.middle;
-        document.getElementById("stat-high").textContent = counts.high;
-        document.getElementById("stat-total").textContent = counts.total;
+            document.getElementById('stat-primary').textContent = counts.primary;
+            document.getElementById('stat-middle').textContent = counts.middle;
+            document.getElementById('stat-high').textContent = counts.high;
+            document.getElementById('stat-total').textContent = counts.total;
 
-        if (malformedNumbers.length > 0) {
-          const malBox = document.getElementById("malformed-box");
-          const malList = document.getElementById("malformed-list");
-          malBox.style.display = "block";
-          malformedNumbers.forEach((n) => {
-            const li = document.createElement("li");
-            li.textContent = n;
-            malList.appendChild(li);
-          });
+            if (malformedNumbers.length > 0) {
+                const malBox = document.getElementById('malformed-box');
+                const malList = document.getElementById('malformed-list');
+                malBox.style.display = 'block';
+                malformedNumbers.forEach(n => {
+                    const li = document.createElement('li');
+                    li.textContent = n;
+                    malList.appendChild(li);
+                });
+            }
+
+            updateStats();
         }
 
-        updateStats();
-      }
-
-      // 4. State Management
-      function markSent(id) {
-        const checkbox = document.getElementById(`check_${id}`);
-        if (!checkbox.checked) {
-          checkbox.checked = true;
-          toggleSent(id);
-        }
-      }
-
-      function toggleSent(id) {
-        const checkbox = document.getElementById(`check_${id}`);
-        const row = document.getElementById(`row_${id}`);
-
-        if (checkbox.checked) {
-          sentState[id] = true;
-          row.classList.add("sent");
-        } else {
-          delete sentState[id];
-          row.classList.remove("sent");
+        // 4. State Management
+        function markSent(id) {
+            const checkbox = document.getElementById(`check_${id}`);
+            if (!checkbox.checked) {
+                checkbox.checked = true;
+                toggleSent(id);
+            }
         }
 
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(sentState));
-        updateStats();
-        toggleHidden();
-      }
+        function toggleSent(id) {
+            const checkbox = document.getElementById(`check_${id}`);
+            const row = document.getElementById(`row_${id}`);
+            
+            if (checkbox.checked) {
+                sentState[id] = true;
+                row.classList.add('sent');
+            } else {
+                delete sentState[id];
+                row.classList.remove('sent');
+            }
+            
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(sentState));
+            updateStats();
+            toggleHidden();
+        }
 
-      function toggleHidden() {
-        const hideSent = document.getElementById("hide-sent").checked;
-        const rows = document.querySelectorAll(".participant");
+        function toggleHidden() {
+            const hideSent = document.getElementById('hide-sent').checked;
+            const rows = document.querySelectorAll('.participant');
+            
+            rows.forEach(row => {
+                if (hideSent && row.classList.contains('sent')) {
+                    row.classList.add('hidden');
+                } else {
+                    row.classList.remove('hidden');
+                }
+            });
+        }
 
-        rows.forEach((row) => {
-          if (hideSent && row.classList.contains("sent")) {
-            row.classList.add("hidden");
-          } else {
-            row.classList.remove("hidden");
-          }
-        });
-      }
+        function updateStats() {
+            const sentCount = Object.keys(sentState).filter(k => document.getElementById(`row_${k}`)).length;
+            const total = document.querySelectorAll('.participant').length;
+            
+            document.getElementById('stat-sent').textContent = sentCount;
+            document.getElementById('stat-remaining').textContent = total - sentCount;
+        }
 
-      function updateStats() {
-        const sentCount = Object.keys(sentState).filter((k) =>
-          document.getElementById(`row_${k}`),
-        ).length;
-        const total = document.querySelectorAll(".participant").length;
-
-        document.getElementById("stat-sent").textContent = sentCount;
-        document.getElementById("stat-remaining").textContent =
-          total - sentCount;
-      }
-
-      // Run
-      init();
+        init();
     </script>
-  </body>
+</body>
 </html>

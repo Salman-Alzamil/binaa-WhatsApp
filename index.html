@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مساعد إرسال واتساب - نادي بناء الصيفي (قائمة الانتظار)</title>
+    <title>مساعد إرسال واتساب - تذكير بالدفع</title>
     <style>
         :root {
             --primary: #25D366;
@@ -12,6 +12,7 @@
             --card-bg: #ffffff;
             --text: #111b21;
             --border: #d1d7db;
+            --warning: #f57c00;
         }
         body {
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
@@ -26,7 +27,7 @@
             margin: 0 auto;
         }
         header {
-            background: var(--primary-dark);
+            background: var(--warning);
             color: white;
             padding: 20px;
             border-radius: 8px;
@@ -53,12 +54,12 @@
         .stat-box {
             text-align: center;
             flex: 1;
-            min-width: 80px;
+            min-width: 100px;
         }
         .stat-value {
-            font-size: 22px;
+            font-size: 24px;
             font-weight: bold;
-            color: var(--primary-dark);
+            color: var(--warning);
         }
         .malformed-box {
             background: #ffebee;
@@ -92,7 +93,7 @@
         input[type="checkbox"] {
             width: 20px;
             height: 20px;
-            accent-color: var(--primary-dark);
+            accent-color: var(--warning);
             cursor: pointer;
         }
         .group {
@@ -185,12 +186,12 @@
 <body>
     <div class="container">
         <header>
-            <h1>مساعد إرسال واتساب - نادي بناء الصيفي 4 (قائمة الانتظار)</h1>
+            <h1>مساعد إرسال واتساب - تذكير بسداد الرسوم 🔔</h1>
         </header>
 
         <div class="summary">
             <div class="stat-box">
-                <div>إجمالي الأرقام</div>
+                <div>إجمالي الأرقام الفريدة</div>
                 <div class="stat-value" id="stat-total">0</div>
             </div>
             <div class="stat-box">
@@ -200,14 +201,6 @@
             <div class="stat-box">
                 <div>المتبقي</div>
                 <div class="stat-value" id="stat-remaining">0</div>
-            </div>
-            <div class="stat-box">
-                <div>ابتدائي</div>
-                <div class="stat-value" id="stat-primary">0</div>
-            </div>
-            <div class="stat-box">
-                <div>متوسط</div>
-                <div class="stat-value" id="stat-middle">0</div>
             </div>
         </div>
 
@@ -227,137 +220,119 @@
     </div>
 
     <script>
-        // 1. Data Extracted from Images
-        const data = [
-            { 
-                level: 'الابتدائي', 
-                key: 'primary', 
-                phones: [
-                    "0506480892", "0509922065", "0556233399", "0556233399", 
-                    "0500031118", "0500200480", "0501130282", "0501130282", 
-                    "0501130282", "0502999817", "0504438035", "0505248253", 
-                    "0533533833", "0533774037", "0534444384", "0541177369", 
-                    "0541177369", "0543049722", "0553919157", "0553919157", 
-                    "0554440490", "0554442477", "0554461575", "0554461575", 
-                    "0555417413", "0555417414", "0555552802", "0555798547", 
-                    "0556330770", "0556868620", "0558554448", "0570040725", 
-                    "0591227707", "0594774477"
-                ] 
-            },
-            { 
-                level: 'المتوسط', 
-                key: 'middle', 
-                phones: [
-                    "0503199822", "0503273458", "0500200480", "0500200480", 
-                    "0500618601", "0500900895", "0503634999", "0504207018", 
-                    "0504438035", "0505229552", "0534000059", "0534000059", 
-                    "054 950 6777", "0546419337", "0551230620", "0555468988", 
-                    "0555591791", "0556330770", "0560644034", "0561113042", 
-                    "0564003009", "0581803121", "0590307887"
-                ] 
-            }
+        // 1. Data Configuration
+        const rawPhones = [
+            966505267448, 966505267448, 966532875778, 966443050084, 966553264496, 
+            966551774777, 966500200480, 96650020480, 966554461575, 966557117883, 
+            966555220577, 966555220577, 966503161128, 966533778210, 966503423424, 
+            966503423424, 966555444820, 966506464112, 966583537033, 966591331228, 
+            966507492856, 966561199660, 966551791573, 966505208519, 966552022021, 
+            966558454546, 966504656838, 966505208519, 966504656838, 966542199925, 
+            966504227685, 966504227685, 966508606487, 966532722646, 966559437000, 
+            966565478866, 966565478866, 966508457484, 966557587778, 966541201753, 
+            966541201753, 966550887979, 966550887979, 966503423424, 966505211670, 
+            966554436065, 966552022021, 966504134558, 966504432225, 966505200356, 
+            966554647511, 966554277740, 966553264496, 966553264496, 966544453595, 
+            966504206090, 966503104344, 966555906880, 966555906880, 966555906880, 
+            966505236258, 966530000693, 966503161128, 966507748124, 966507748124, 
+            966506480892, 966505229552, 966546111009, 966546111000, 966505450335, 
+            966599941260, 966506299997, 966503104344, 966503699488, 966505286327, 
+            966566660046, 966500400162, 966553471199, 966555495306, 966555495306, 
+            966561331099, 966555265452, 966546041113, 966506406382, 966504414169, 
+            966504414169, 966504414169, 966530000693, 966596611010, 966555553911, 
+            966506110020, 966596611010, 966530106892, 966505222646, 966530000693, 
+            966503192564, 966530000693, 966552251777, 966504130130, 966546419337
         ];
 
-        // 2. The Unified Message
-        const unifiedMessage = `عزيزي المشارك
-نقدّر لك حرصك 
-ونشكر لك اختيارك لنادي بناء الصيفي 4 ⛱️
-ولكن يؤسفنا أن العدد وصل للحد الأعلى
+        const reminderMessage = `🔔 تذكير بإكمال سداد رسوم التسجيل
+⛱️ نادي بناء الصيفي 4 💫
 
-بإمكانك التسجيل في الانتظار الآن
-في حال كان هناك اعتذارات أو مجال للقبول
-فتأكد أننا نحرص على مشاركتك معنا 💐
+نأمل منكم المبادرة بإتمام سداد رسوم التسجيل خلال الـ 12 ساعة القادمة، وذلك للاستفادة من رسوم السداد المبكر 
 
-https://forms.gle/k9736sPRsAmU7fgG7`;
+ملاحظة: في حال عدم إتمام السداد خلال 12 ساعة، ستصبح رسوم الاشتراك 900 ريال بدالا من 750 ريال 
 
-        const messages = {
-            primary: unifiedMessage,
-            middle: unifiedMessage
-        };
+رابط السداد:
+https://www.jtwnn.org/programs-register/نادي-بناء-الصيفي-4/`;
 
-        const STORAGE_KEY = 'wa_sender_sent_state_v6';
+        const STORAGE_KEY = 'wa_sender_sent_state_reminder_v1';
         let sentState = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
         let malformedNumbers = [];
 
-        // 3. Format Phone Number
+        // 2. Format Phone Number
         function normalizePhone(p) {
             let cleaned = String(p).replace(/[\s\-\u200E\u200F\u202A-\u202E]/g, '');
+            // We allow numbers starting with 966 to pass as valid.
+            if (/^966\d{8,9}$/.test(cleaned)) return cleaned;
             if (/^05\d{8}$/.test(cleaned)) return "966" + cleaned.substring(1);
             if (/^5\d{8}$/.test(cleaned)) return "966" + cleaned;
-            if (/^9665\d{8}$/.test(cleaned)) return cleaned;
             return null;
         }
 
-        // 4. Initialize App
+        // 3. Initialize App
         function init() {
             const container = document.getElementById('lists-container');
-            let counts = { primary: 0, middle: 0, total: 0 };
+            let totalValid = 0;
 
-            data.forEach(group => {
-                const groupDiv = document.createElement('div');
-                groupDiv.className = 'group';
-                
-                const groupHeader = document.createElement('div');
-                groupHeader.className = 'group-header';
-                groupHeader.textContent = `قسم ${group.level}`;
-                groupDiv.appendChild(groupHeader);
+            const groupDiv = document.createElement('div');
+            groupDiv.className = 'group';
+            
+            const groupHeader = document.createElement('div');
+            groupHeader.className = 'group-header';
+            groupHeader.textContent = `قائمة التذكير`;
+            groupDiv.appendChild(groupHeader);
 
-                const seenInThisLevel = new Set();
+            const seenNumbers = new Set();
 
-                group.phones.forEach((rawPhone) => {
-                    const normalized = normalizePhone(rawPhone);
-                    if (!normalized) {
-                        malformedNumbers.push(rawPhone);
-                        return;
-                    }
-
-                    if (seenInThisLevel.has(normalized)) {
-                        return; // Skip duplicates within the same level
-                    }
-                    seenInThisLevel.add(normalized);
-
-                    counts[group.key]++;
-                    counts.total++;
-
-                    const id = `${group.key}_${normalized}`;
-                    const isSent = !!sentState[id];
-
-                    const msgUrl = `https://wa.me/${normalized}?text=${encodeURIComponent(messages[group.key])}`;
-
-                    const row = document.createElement('div');
-                    row.className = `participant ${isSent ? 'sent' : ''}`;
-                    row.id = `row_${id}`;
-
-                    row.innerHTML = `
-                        <div class="info">
-                            <span class="name-label">مشارك</span>
-                            <div class="phone" dir="ltr">+${normalized}</div>
-                        </div>
-                        <div class="actions">
-                            <a href="${msgUrl}" target="_blank" class="btn-whatsapp" onclick="markSent('${id}')">فتح في واتساب</a>
-                            <label class="sent-toggle">
-                                <input type="checkbox" id="check_${id}" ${isSent ? 'checked' : ''} onchange="toggleSent('${id}')">
-                                تم ✓
-                            </label>
-                        </div>
-                    `;
-                    groupDiv.appendChild(row);
-                });
-
-                if (counts[group.key] > 0) {
-                    container.appendChild(groupDiv);
+            rawPhones.forEach((rawPhone) => {
+                const normalized = normalizePhone(rawPhone);
+                if (!normalized) {
+                    malformedNumbers.push(rawPhone);
+                    return;
                 }
+
+                if (seenNumbers.has(normalized)) {
+                    return; // Skip duplicates
+                }
+                seenNumbers.add(normalized);
+                totalValid++;
+
+                const id = `rem_${normalized}`;
+                const isSent = !!sentState[id];
+
+                const msgUrl = `https://wa.me/${normalized}?text=${encodeURIComponent(reminderMessage)}`;
+
+                const row = document.createElement('div');
+                row.className = `participant ${isSent ? 'sent' : ''}`;
+                row.id = `row_${id}`;
+
+                row.innerHTML = `
+                    <div class="info">
+                        <span class="name-label">مشارك</span>
+                        <div class="phone" dir="ltr">+${normalized}</div>
+                    </div>
+                    <div class="actions">
+                        <a href="${msgUrl}" target="_blank" class="btn-whatsapp" onclick="markSent('${id}')">فتح في واتساب</a>
+                        <label class="sent-toggle">
+                            <input type="checkbox" id="check_${id}" ${isSent ? 'checked' : ''} onchange="toggleSent('${id}')">
+                            تم ✓
+                        </label>
+                    </div>
+                `;
+                groupDiv.appendChild(row);
             });
 
-            document.getElementById('stat-primary').textContent = counts.primary;
-            document.getElementById('stat-middle').textContent = counts.middle;
-            document.getElementById('stat-total').textContent = counts.total;
+            if (totalValid > 0) {
+                container.appendChild(groupDiv);
+            }
+
+            document.getElementById('stat-total').textContent = totalValid;
 
             if (malformedNumbers.length > 0) {
                 const malBox = document.getElementById('malformed-box');
                 const malList = document.getElementById('malformed-list');
                 malBox.style.display = 'block';
-                malformedNumbers.forEach(n => {
+                // Remove dupes from malformed just for cleaner display
+                [...new Set(malformedNumbers)].forEach(n => {
                     const li = document.createElement('li');
                     li.textContent = n;
                     malList.appendChild(li);
@@ -367,7 +342,7 @@ https://forms.gle/k9736sPRsAmU7fgG7`;
             updateStats();
         }
 
-        // 5. State Management
+        // 4. State Management
         function markSent(id) {
             const checkbox = document.getElementById(`check_${id}`);
             if (!checkbox.checked) {
